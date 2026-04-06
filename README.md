@@ -1,148 +1,339 @@
-Assignment Details
-Read the following instructions carefully before starting your assignment.
+# Finance Dashboard Backend System
 
-Finance Data Processing and Access Control Backend
-Objective
-To evaluate your backend development skills through a practical assignment centered around API design, data modeling, business logic, and access control.
+A comprehensive, production-ready Finance Data Processing and Access Control Dashboard backend system built with Node.js, Express.js, MongoDB, and JWT authentication.
 
-This assignment is intended to assess how you think about backend architecture, structure application logic, handle data correctly, and build reliable systems that are clear, maintainable, and logically organized.
+## 🚀 Features
 
-Note: If you have already built a similar backend project earlier, you may submit that project for evaluation. Please make sure to clearly explain how it matches this assignment and share the repository and, if available, the deployed API or documentation link.
-Key Instructions
-You are not required to follow a fixed project structure. You are free to organize the backend in the way you believe is most appropriate.
-Focus on correctness, clarity, and maintainability. We are interested in how you design data flow, structure APIs, and write backend logic.
-Reasonable assumptions are acceptable. If something is not explicitly defined, you may make sensible assumptions and document them.
-Clean implementation matters. A smaller but well designed solution is better than a large but inconsistent one.
-Flexibility
-You have full freedom to:
+### User & Role Management
+- User registration and login with JWT authentication
+- Role-based access control (Viewer, Analyst, Admin)
+- User status management (active/inactive)
+- Role-specific permissions:
+  - **Viewer**: Read-only access to financial records
+  - **Analyst**: Read access + dashboard insights and analytics
+  - **Admin**: Full access (CRUD on users and all records)
 
-Use any backend language, framework, or library
-Use any database of your choice, or even an in memory store for a simplified implementation
-Define your own schema, service structure, and business logic flow
-Build REST APIs, GraphQL APIs, or an equivalent backend interface
-Use mock authentication and local development setup if needed
-Scenario
-Imagine you are building the backend for a finance dashboard system where different users interact with financial records based on their role.
+### Financial Records Management
+- Complete CRUD operations for financial records
+- Fields: amount, type (income/expense), category, date, description
+- Advanced filtering by date range, category, and type
+- Pagination support
+- Search functionality in description and category
+- Soft delete for data preservation
 
-The system should support the storage and management of financial entries, user roles, permissions, and summary level analytics. The goal is to build a backend that is logically structured and able to serve data to a frontend dashboard in a clean and efficient way.
+### Dashboard Analytics
+- Total income calculation
+- Total expenses calculation
+- Net balance
+- Category-wise totals breakdown
+- Recent transactions (last 10)
+- Monthly summary trends
 
-Core Requirements
-1. User and Role Management
-Provide a way to manage users and their access levels within the system.
+### Security Features
+- JWT-based authentication
+- Password hashing with bcrypt (10 rounds)
+- Input validation and sanitization
+- Role-based access control middleware
+- Protected routes with proper authorization
 
-Your backend should support:
+## 🛠 Technology Stack
 
-Creating and managing users
-Assigning roles to users
-Managing user status such as active or inactive
-Restricting actions based on roles
-You may define roles such as:
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Database**: MongoDB with Mongoose ODM
+- **Authentication**: JWT (JSON Web Tokens)
+- **Password Security**: bcryptjs
+- **Validation**: express-validator
+- **Logging**: Morgan
+- **Security**: CORS
 
-Viewer: Can only view dashboard data
-Analyst: Can view records and access insights
-Admin: Can create, update, and manage records and users
-The exact role model is up to you, but role based behavior should be clear in your implementation.
+## 📁 Project Structure
+finance-dashboard-backend/
+├── src/
+│ ├── config/
+│ │ └── database.js # MongoDB connection
+│ ├── controllers/
+│ │ ├── authController.js # Authentication logic
+│ │ ├── financialController.js # Financial CRUD operations
+│ │ └── userController.js # User management (admin)
+│ ├── middleware/
+│ │ ├── authMiddleware.js # JWT & role verification
+│ │ ├── errorMiddleware.js # Global error handling
+│ │ └── validationMiddleware.js # Input validation
+│ ├── models/
+│ │ ├── User.js # User schema
+│ │ └── FinancialRecord.js # Financial record schema
+│ ├── routes/
+│ │ ├── authRoutes.js # Authentication endpoints
+│ │ ├── financialRoutes.js # Financial endpoints
+│ │ └── userRoutes.js # User management endpoints
+│ ├── services/
+│ │ └── dashboardService.js # Dashboard calculations
+│ ├── utils/
+│ │ └── validators.js # Validation rules
+│ └── app.js # Express app configuration
+├── .env # Environment variables
+├── .gitignore # Git ignore file
+├── package.json # Dependencies
+└── server.js # Application entry point
 
-2. Financial Records Management
-Create backend support for financial data such as transactions or entries.
 
-Each record can include fields such as:
+## 📋 Prerequisites
 
-Amount
-Type such as income or expense
-Category
-Date
-Notes or description
-Your backend should support operations such as:
+- Node.js (v14.x or higher)
+- MongoDB (v4.4 or higher) or MongoDB Atlas account
+- npm or yarn package manager
 
-Creating records
-Viewing records
-Updating records
-Deleting records
-Filtering records based on criteria such as date, category, or type
-3. Dashboard Summary APIs
-Provide APIs or backend logic that can return summary level data for a dashboard.
+## 🔧 Installation
 
-Examples include:
+### 1. Clone the repository
+```bash
+git clone <your-repository-url>
+cd finance-dashboard-backend
 
-Total income
-Total expenses
-Net balance
-Category wise totals
-Recent activity
-Monthly or weekly trends
-The purpose here is to show how you design backend endpoints or service logic for aggregated data, not just basic CRUD operations.
+## 📋 Prerequisites
 
-4. Access Control Logic
-Implement backend level access control for different roles.
+- Node.js (v14.x or higher)
+- MongoDB (v4.4 or higher) or MongoDB Atlas account
+- npm or yarn package manager
 
-The system should clearly enforce which type of user can perform which action. For example:
+## 🔧 Installation
 
-A viewer should not be able to create or modify records
-An analyst may be allowed to read records and access summaries
-An admin may be allowed full management access
-You may implement this using middleware, guards, decorators, policy checks, or any equivalent method depending on the framework you choose.
+### 1. Clone the repository
+```bash
+git clone https://github.com/Dipakhyalij/Finance-dashboard-backend.git
+cd finance-dashboard-backend
 
-5. Validation and Error Handling
-Your backend should demonstrate proper handling of incorrect or incomplete input.
+NODE_ENV=development
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/finance_dashboard
+JWT_SECRET=your_super_secure_jwt_secret_key_minimum_64_characters
+JWT_EXPIRE=30d
+BCRYPT_ROUNDS=10
 
-This includes:
 
-Input validation
-Useful error responses
-Status codes used appropriately
-Protection against invalid operations
-The goal is not perfection, but your implementation should show that you understand how a backend should behave in real usage.
+# Development mode (with auto-reload)
+npm run dev
 
-6. Data Persistence
-Use a persistence approach suitable for your project.
+# Production mode
+npm start
 
-This can be:
 
-A relational database
-A document database
-SQLite for simplicity
-Any other reasonable option
-If you choose a simplified or mock storage approach, mention it clearly in your documentation.
 
-Optional Enhancements
-You may include additional improvements such as:
+📚 API Documentation
+Authentication Endpoints
+Method	Endpoint	Description	Access
+POST	/api/auth/register	Register new user	Public
+POST	/api/auth/login	Login user	Public
+GET	/api/auth/me	Get current user info	Authenticated
+Financial Records Endpoints
+Method	Endpoint	Description	Access
+POST	/api/financial/records	Create financial record	Authenticated
+GET	/api/financial/records	Get all records (with filters)	Authenticated
+GET	/api/financial/records/:id	Get single record	Authenticated
+PUT	/api/financial/records/:id	Update record	Authenticated
+DELETE	/api/financial/records/:id	Delete record (soft delete)	Authenticated
+GET	/api/financial/dashboard	Get dashboard summary	Analyst+
+User Management Endpoints (Admin Only)
+Method	Endpoint	Description
+GET	/api/users	Get all users
+GET	/api/users/:id	Get user by ID
+PUT	/api/users/:id	Update user
+DELETE	/api/users/:id	Delete user
+PATCH	/api/users/:id/role	Update user role
+🔍 API Usage Examples
+Register a User
+bash
+curl -X POST http://localhost:5000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password123",
+    "role": "viewer"
+  }'
+Login
+bash
+curl -X POST http://localhost:5000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "john@example.com",
+    "password": "password123"
+  }'
+Create Financial Record (Requires Token)
+bash
+curl -X POST http://localhost:5000/api/financial/records \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{
+    "amount": 5000,
+    "type": "income",
+    "category": "Salary",
+    "date": "2024-01-15",
+    "description": "January salary"
+  }'
+Get Dashboard Summary (Analyst+)
+bash
+curl -X GET "http://localhost:5000/api/financial/dashboard?startDate=2024-01-01&endDate=2024-12-31" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+Get Records with Filters & Pagination
+bash
+curl -X GET "http://localhost:5000/api/financial/records?type=expense&category=Rent&page=1&limit=10&startDate=2024-01-01&endDate=2024-12-31" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+🗄️ Database Schema
+User Schema
+javascript
+{
+  name: String (required, 2-50 chars),
+  email: String (required, unique, valid email),
+  password: String (required, min 6 chars, hashed),
+  role: Enum['viewer', 'analyst', 'admin'],
+  status: Enum['active', 'inactive'],
+  createdAt: Date,
+  updatedAt: Date
+}
+Financial Record Schema
+javascript
+{
+  user: ObjectId (ref: User),
+  amount: Number (required, >0),
+  type: Enum['income', 'expense'],
+  category: String (required),
+  date: Date (required),
+  description: String (max 200 chars),
+  isDeleted: Boolean (soft delete),
+  deletedAt: Date
+}
+🎯 Role-Based Access Control
+Permission	Viewer	Analyst	Admin
+View financial records	✅	✅	✅
+Create/update/delete records	❌	✅	✅
+View dashboard insights	❌	✅	✅
+Manage users	❌	❌	✅
+Manage all records	❌	❌	✅
+🧪 Testing
+bash
+# Run tests
+npm test
+📦 Dependencies
+Production
+express - Web framework
 
-Authentication using tokens or sessions
-Pagination for record listing
-Search support
-Soft delete functionality
-Rate limiting
-Unit tests or integration tests
-API documentation
-These are not mandatory, but thoughtful additions are always appreciated.
+mongoose - MongoDB ODM
 
-Evaluation Criteria
-1. Backend Design
-How well the application is structured, including routes, services, models, and separation of concerns.
+bcryptjs - Password hashing
 
-2. Logical Thinking
-How clearly business rules, access control, and data processing have been implemented.
+jsonwebtoken - JWT authentication
 
-3. Functionality
-Whether the expected APIs and backend features work correctly and consistently.
+dotenv - Environment variables
 
-4. Code Quality
-Readability, maintainability, naming, organization, and general coding practices.
+express-validator - Input validation
 
-5. Database and Data Modeling
-How appropriately data is modeled and managed for the use case.
+cors - Cross-origin support
 
-6. Validation and Reliability
-How well the application handles bad input, invalid states, and error conditions.
+morgan - HTTP logging
 
-7. Documentation
-Clarity of the README, setup process, API explanation, assumptions made, and any tradeoffs considered.
+Development
+nodemon - Auto-reload during development
 
-8. Additional Thoughtfulness
-Any extra effort that improves usability, clarity, or system design.
+jest - Testing framework
 
-Important Note
-This assignment is designed purely for assessment. The purpose is to understand your backend thinking, implementation style, and engineering approach. You are not expected to build a production ready system.
+supertest - HTTP assertions
 
-A well reasoned and well structured submission will always be valued more than unnecessary complexity. This assignment is an opportunity to show how you approach backend engineering from both a technical and practical perspective. We are interested not only in whether the system works, but also in how you think while building it.
+🔒 Security Best Practices
+Passwords are hashed using bcrypt (10 rounds)
+
+JWT tokens for stateless authentication
+
+Input validation on all endpoints
+
+Role-based access control middleware
+
+Soft delete instead of permanent deletion
+
+Environment variables for sensitive data
+
+Error messages don't expose sensitive information
+
+🚦 Error Handling
+The API returns appropriate HTTP status codes:
+
+200 - Success
+
+201 - Created successfully
+
+400 - Bad request (validation failed)
+
+401 - Unauthorized (invalid token)
+
+403 - Forbidden (insufficient permissions)
+
+404 - Resource not found
+
+500 - Server error
+
+📈 Sample Dashboard Response
+json
+{
+  "success": true,
+  "data": {
+    "totalIncome": 50000,
+    "totalExpenses": 25000,
+    "netBalance": 25000,
+    "categoryTotals": {
+      "Salary": { "income": 50000, "expense": 0, "total": 50000 },
+      "Rent": { "income": 0, "expense": 15000, "total": 15000 },
+      "Groceries": { "income": 0, "expense": 10000, "total": 10000 }
+    },
+    "recentTransactions": [...],
+    "monthlyTrends": [
+      { "month": "2024-01", "income": 50000, "expense": 25000, "net": 25000 }
+    ],
+    "totalTransactions": 25
+  }
+}
+🤝 Contributing
+Fork the repository
+
+Create your feature branch (git checkout -b feature/AmazingFeature)
+
+Commit your changes (git commit -m 'Add some AmazingFeature')
+
+Push to the branch (git push origin feature/AmazingFeature)
+
+Open a Pull Request
+
+📝 License
+This project is licensed under the MIT License.
+
+👥 Authors
+Your Name - Initial work
+
+🙏 Acknowledgments
+Express.js team for the amazing framework
+
+MongoDB team for the database
+
+All contributors and open-source libraries used
+
+📧 Support
+For support, email your-email@example.com or create an issue in the repository.
+
+🚀 Quick Start Commands
+bash
+# Clone and install
+git clone <repo-url>
+cd finance-dashboard-backend
+npm install
+
+# Set up environment
+cp .env.example .env  # Create .env with your values
+
+# Start MongoDB
+mongod
+
+# In another terminal, start the app
+npm run dev
+
+# Test the API
+curl http://localhost:5000/api/health
