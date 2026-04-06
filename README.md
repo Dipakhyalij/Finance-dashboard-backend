@@ -337,3 +337,7 @@ npm run dev
 
 # Test the API
 curl http://localhost:5000/api/health
+
+
+### for API documentation 
+http://localhost:5000/api-docs
